@@ -1,0 +1,4 @@
+2020-10-06 14:13:37.601  INFO 396 --- [restartedMain] com.cxw.BlogApplication                  : Starting BlogApplication on Win10-2020PJGSV with PID 396 (F:\Study\IntellijIDEA\blog\target\classes started by Administrator in F:\Study\IntellijIDEA\blog)
+2020-10-06 14:13:37.603  INFO 396 --- [restartedMain] com.cxw.BlogApplication                  : The following profiles are active: pro
+2020-10-06 14:13:38.961  WARN 396 --- [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2020-10-06 14:13:39.118  INFO 396 --- [restartedMain] com.cxw.BlogApplication                  : Started BlogApplication in 2.043 seconds (JVM running for 3.401)

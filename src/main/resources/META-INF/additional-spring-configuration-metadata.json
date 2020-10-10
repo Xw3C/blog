@@ -1,0 +1,28 @@
+{
+  "properties": [
+    {
+      "name": "logging.file.name",
+      "type": "java.lang.String",
+      "description": "Description for logging.file.name."
+    },
+    {
+      "name": "logging.file.name",
+      "type": "java.lang.String",
+      "description": "Description for logging.file.name."
+    },
+    {
+      "name": "logging.file.name",
+      "type": "java.lang.String",
+      "description": "Description for logging.file.name."
+    },
+    {
+      "name": "logging.file.name",
+      "type": "java.lang.String",
+      "description": "Description for logging.file.name."
+    },
+    {
+      "name": "logging.file.name",
+      "type": "java.lang.String",
+      "description": "Description for logging.file.name."
+    }
+  ] }
