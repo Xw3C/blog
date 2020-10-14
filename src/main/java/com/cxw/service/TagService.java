@@ -5,6 +5,8 @@ import com.cxw.po.Type;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface TagService {
     //新增方法接口
     Tag saveTag(Tag tag);
@@ -13,7 +15,9 @@ public interface TagService {
     Tag getTag(Long id);
     //根据名称查询
     Tag getTagByName(String name);
-   
+
+    //获取到所有参数
+    List<Tag> listTag();
 
     //类型分页
     Page<Tag> listTag(Pageable pageable);

@@ -26,7 +26,7 @@
                     </div>
                     <i class="dropdown icon"></i>
                     <div class="menu">
-                        <a href="" class="item">注销</a>
+                        <a href="#" class="item">注销</a>
                     </div>
                 </div>
             </div>
@@ -123,7 +123,7 @@
 </footer>
 
 
-<!--/*/<th:block th:replace="_fragments :: script">/*/-->
+<!--/*/<th:block th:replace="admin/_fragments :: script">/*/-->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
@@ -137,7 +137,7 @@
 
 
     $('.menu.toggle').click(function () {
-        $('.m-item').toggleClass('m-mobile-hide')
+        $('.m-item').toggleClass('m-mobile-hide');
     });
 
     $('.ui.dropdown').dropdown({

@@ -4,6 +4,8 @@ import com.cxw.po.Type;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 //定义接口的方法
 public interface TypeService {
     //新增方法接口
@@ -16,6 +18,9 @@ public interface TypeService {
 
     //类型分页
     Page<Type> listType(Pageable pageable);
+
+    //获取所有的参数
+    List<Type> listType();
 
     //修改
     Type updateType(Long id,Type type);

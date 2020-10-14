@@ -2,7 +2,6 @@ package com.cxw.web.admin;
 
 
 import com.cxw.po.Type;
-import com.cxw.po.User;
 import com.cxw.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -35,7 +34,7 @@ public class TypeController {
     }
 
     @GetMapping("/types/input")
-    //types新增方法
+    //types更新和新增的页面共用
     public String input(Model model) {
         model.addAttribute("type", new Type());
         return "admin/types-input";

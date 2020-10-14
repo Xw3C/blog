@@ -1,6 +1,8 @@
 package com.cxw.po;
 
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,6 +18,9 @@ public class Type {
     //生成策略
     @GeneratedValue
     private Long id;
+
+    //不允许为空校验
+    @NotBlank(message = "分类名称不能为空")
     private String name;
 
     @OneToMany(mappedBy = "type")
