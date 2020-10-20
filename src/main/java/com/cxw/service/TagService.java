@@ -16,14 +16,15 @@ public interface TagService {
     //根据名称查询
     Tag getTagByName(String name);
 
-    //获取到所有参数
-    List<Tag> listTag();
-
-    //类型分页
     Page<Tag> listTag(Pageable pageable);
 
-    //修改	
-	Tag updateTag(Long id,Tag tag);
+    List<Tag> listTag();
+
+    List<Tag> listTagTop(Integer size);
+
+    List<Tag> listTag(String ids);
+
+    Tag updateTag(Long id, Tag type);
 
     //根据主键删除
     void deleteTag(Long id);

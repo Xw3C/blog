@@ -17,4 +17,5 @@ logging:
 server:
   port: 8081
 
-logging.file
+
+

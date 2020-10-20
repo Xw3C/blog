@@ -5,16 +5,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Entity(name = "t_blog")
-
+/**
+ * Created by limi on 2017/10/14.
+ */
+@Entity
+@Table(name = "t_blog")
 public class Blog {
     @Id
     @GeneratedValue
     private Long id;
 
-    private String title;
+
+    private String title;    //标题
+
+    @Basic(fetch = FetchType.LAZY) //懒加载，去使用时才会加载这个值
+    @Lob
     private String content;
-    private String fistPicture;
+    private String firstPicture;
     private String flag;
     private Integer views;
     private boolean appreciation;
@@ -39,6 +46,10 @@ public class Blog {
     @OneToMany(mappedBy = "blog")
     private List<Comment> comments = new ArrayList<>();
 
+    @Transient
+    private String tagIds;
+
+    private String description;
 
     public Blog() {
     }
@@ -67,12 +78,12 @@ public class Blog {
         this.content = content;
     }
 
-    public String getFistPicture() {
-        return fistPicture;
+    public String getFirstPicture() {
+        return firstPicture;
     }
 
-    public void setFistPicture(String fistPicture) {
-        this.fistPicture = fistPicture;
+    public void setFirstPicture(String firstPicture) {
+        this.firstPicture = firstPicture;
     }
 
     public String getFlag() {
@@ -179,13 +190,52 @@ public class Blog {
         this.comments = comments;
     }
 
+
+    public String getTagIds() {
+        return tagIds;
+    }
+
+    public void setTagIds(String tagIds) {
+        this.tagIds = tagIds;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void init() {
+        this.tagIds = tagsToIds(this.getTags());
+    }
+
+    private String tagsToIds(List<Tag> tags) {
+        if (!tags.isEmpty()) {
+            StringBuffer ids = new StringBuffer();
+            boolean flag = false;
+            for (Tag tag : tags){
+                if (flag){
+                    ids.append(",");
+                }else{
+                    flag = true;
+                }
+                ids.append(tag.getId());
+            }
+            return ids.toString();
+        }else{
+            return tagIds;
+        }
+    }
+
     @Override
     public String toString() {
         return "Blog{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
-                ", fistPicture='" + fistPicture + '\'' +
+                ", firstPicture='" + firstPicture + '\'' +
                 ", flag='" + flag + '\'' +
                 ", views=" + views +
                 ", appreciation=" + appreciation +
@@ -195,6 +245,12 @@ public class Blog {
                 ", recommend=" + recommend +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
+                ", type=" + type +
+                ", tags=" + tags +
+                ", user=" + user +
+                ", comments=" + comments +
+                ", tagIds='" + tagIds + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

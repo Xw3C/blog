@@ -6,14 +6,17 @@ import com.cxw.po.Tag;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TagServiceImpl implements TagService{
+public class TagServiceImpl implements TagService {
     @Autowired
     private TagRepository tagRepository;
 
@@ -36,17 +39,42 @@ public class TagServiceImpl implements TagService{
         return tagRepository.findByName(name);
     }
 
+    @Transactional
+    @Override
+    public Page<Tag> listTag(Pageable pageable) {
+        return tagRepository.findAll(pageable);
+    }
+
     @Override
     public List<Tag> listTag() {
         return tagRepository.findAll();
     }
 
-    @Transactional //放到事务
     @Override
-    //分页，jpa已经封装了一个方法
-    public Page<Tag> listTag(Pageable pageable) {
-        return tagRepository.findAll(pageable);
+    public List<Tag> listTagTop(Integer size) {
+        Sort sort = new Sort(Sort.Direction.DESC,"blogs.size");
+        Pageable pageable = new PageRequest(0,size,sort);
+        return tagRepository.findTop(pageable);
     }
+
+
+    @Override
+    public List<Tag> listTag(String ids) { //1,2,3
+        return tagRepository.findAll(convertToList(ids));
+    }
+
+    private List<Long> convertToList(String ids) {
+        List<Long> list = new ArrayList<>();
+        //非空判断
+        if (!"".equals(ids) && ids != null) {
+            String[] idarray = ids.split(",");
+            for (int i = 0; i < idarray.length; i++){
+                list.add(new Long(idarray[i]));
+            }
+        }
+        return list;
+    }
+
 
     @Transactional //放到事务
     @Override
@@ -55,10 +83,10 @@ public class TagServiceImpl implements TagService{
         //根据ID查询对象
         Tag t = tagRepository.findOne(id);
         //判断t是否
-        if (t == null){
+        if (t == null) {
             throw new NotFoundException("不存在该标签");
         }
-        BeanUtils.copyProperties(tag,t);
+        BeanUtils.copyProperties(tag, t);
         return tagRepository.save(t);
     }
 

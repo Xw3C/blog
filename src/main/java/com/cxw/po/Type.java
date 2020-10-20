@@ -3,15 +3,15 @@ package com.cxw.po;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
-@Entity(name = "t_type")
+/**
+ * Created by limi on 2017/10/14.
+ */
+@Entity
+@Table(name = "t_type")
 public class Type {
     //主键ID
     @Id

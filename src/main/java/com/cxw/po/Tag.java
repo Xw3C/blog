@@ -5,14 +5,15 @@ package com.cxw.po;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "t_tag")
+/**
+ * Created by limi on 2017/10/14.
+ */
+@Entity
+@Table(name = "t_tag")
 public class Tag {
     @Id
     @GeneratedValue

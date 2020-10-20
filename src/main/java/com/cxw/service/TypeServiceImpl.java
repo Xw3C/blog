@@ -6,7 +6,9 @@ import com.cxw.po.Type;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -28,17 +30,17 @@ public class TypeServiceImpl implements TypeService {
         return typeRepository.save(type);
     }
 
-    @Override
-    public Type getTypeByName(String name) {
-        return typeRepository.findByName(name);
-    }
-
     @Transactional
     @Override
     //根据ID查询Type
     public Type getType(Long id) {
 
         return typeRepository.findOne(id);
+    }
+
+    @Override
+    public Type getTypeByName(String name) {
+        return typeRepository.findByName(name);
     }
 
     @Transactional
@@ -52,6 +54,15 @@ public class TypeServiceImpl implements TypeService {
     @Override
     public List<Type> listType() {
         return typeRepository.findAll();
+    }
+
+    @Override
+    public List<Type> listTypeTop(Integer size) {
+        //排序 DESC倒序、由大到小,指定由blogs.size排序
+        Sort sort = new Sort(Sort.Direction.DESC,"blogs.size");
+        //拿第一页
+        Pageable pageable = new PageRequest(0,size,sort);
+        return typeRepository.findTop(pageable);
     }
 
     @Transactional

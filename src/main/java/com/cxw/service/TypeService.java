@@ -22,6 +22,9 @@ public interface TypeService {
     //获取所有的参数
     List<Type> listType();
 
+    //定义一个结构方法，获取一个list
+    List<Type> listTypeTop(Integer size);
+
     //修改
     Type updateType(Long id,Type type);
 
