@@ -35,52 +35,49 @@
     </a>
 </nav>
 
-<!--中间内容-->
-<div id="waypoint" class="m-container-small m-padded-tb-big animate__animated animate__fadeIn">
+  <!--中间内容-->
+  <div id="waypoint" class="m-container-small m-padded-tb-big animated fadeIn">
     <div class="ui container">
-        <div class="ui top attached segment">
-            <div class="ui mini horizontal link list">
-                <div class="item">
-                    <img src="https://picsum.photos/id/1002/100/100" alt=""
-                         class="ui avatar image">
-                    <div class="content"><a href="#" class="header">Xw Chen</a></div>
-                </div>
-                <div class="item">
-                    <i class="calendar icon"></i> 2020-10-4
-                </div>
-                <div class="item">
-                    <i class="eye icon"></i>134
-                </div>
-            </div>
+      <div class="ui top attached segment">
+        <div class="ui horizontal link list">
+          <div class="item">
+            <img src="https://unsplash.it/100/100?image=1005" th:src="@{${blog.user.avatar}}"  alt="" class="ui avatar image">
+            <div class="content"><a href="#" class="header" th:text="${blog.user.nickname}">Xw Chen</a></div>
+          </div>
+          <div class="item">
+            <i class="calendar icon"></i> <span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm:ss')}">2017-10-01</span>
+          </div>
+          <div class="item">
+            <i class="eye icon"></i> <span th:text="${blog.views}">2342</span>
+          </div>
         </div>
-        <div class="ui attached segment">
-            <!--图片区域-->
-            <img src="https://picsum.photos/id/1002/800/450" alt="" class="ui fluid rounded image">
+      </div>
+      <div class="ui attached segment">
+        <!--图片区域-->
+        <img src="https://unsplash.it/800/450?image=1005" th:src="@{${blog.firstPicture}}" alt="" class="ui fluid rounded image">
+      </div>
+      <div class="ui  attached padded segment">
+        <!--内容-->
+        <div class="ui right aligned basic segment">
+          <div class="ui orange basic label" th:text="${blog.flag}">原创</div>
         </div>
-        <div class="ui attached padded segment">
-            <!--内容-->
-            <div class="ui right aligned basic segment ">
-                <div class="ui red basic label">原创</div>
-            </div>
 
-            <h2 class="ui center aligned header">三国战纪</h2>
+        <h2 class="ui center aligned header" th:text="${blog.title}">Type.css</h2>
+        <br>
+        <!--中间主要内容部分-->
+        <div id="content" class="typo  typo-selection js-toc-content m-padded-lr-responsive m-padded-tb-large" th:utext="${blog.content}">
 
-            <pre><code class="language-css">p{color:red}</code></pre>
+          <h2 id="section1">一、关于 <i class="serif">Typo.css</i></h2>
 
-            <pre><code class="language-css">p{color:red}</code></pre>
+          <pre><code class="language-css">p { color: red }</code></pre>
 
-            <br>
-            <div id="content" class="typo typo-selection js-toc-content m-padded-lr-responsive m-padded-tb-tiny">
+          <pre><code class="language-css">p { color: red }</code></pre>
 
-                <h2 id="section1">一、关于 <i class="serif">Typo.css</i></h2>
+          <p><i class="serif">Typo.css</i> 的目的是，在一致化浏览器排版效果的同时，构建最适合中文阅读的网页排版。</p>
+          <h4 >现状和如何去做：</h4>
 
-                <p><i class="serif">Typo.css</i> 的目的是，在一致化浏览器排版效果的同时，构建最适合中文阅读的网页排版。</p>
-                <h4>现状和如何去做：</h4>
-
-                <p class="typo-first">排版是一个麻烦的问题 <sup><a href="#appendix1"># 附录一</a></sup>，需要精心设计，而这个设计却是常被视觉设计师所忽略的。前端工程师更常看到这样的问题，但不便变更。因为在多个
-                    OS 中的不同浏览器渲染不同，改动需要多的时间做回归测试，所以改变变得更困难。而像我们一般使用的
-                    Yahoo、Eric Meyer 和 Alice base.css 中采用的 Reset 都没有很好地考虑中文排版。<i class="serif">Typo.css</i>
-                    要做的就是解决中文排版的问题。</p>
+          <p class="typo-first">排版是一个麻烦的问题 <sup><a href="#appendix1"># 附录一</a></sup>，需要精心设计，而这个设计却是常被视觉设计师所忽略的。前端工程师更常看到这样的问题，但不便变更。因为在多个 OS 中的不同浏览器渲染不同，改动需要多的时间做回归测试，所以改变变得更困难。而像我们一般使用的
+            Yahoo、Eric Meyer 和 Alice base.css 中采用的 Reset 都没有很好地考虑中文排版。<i class="serif">Typo.css</i> 要做的就是解决中文排版的问题。</p>
 
                 <p><strong><i class="serif">Typo.css</i> 测试于如下平台：</strong></p>
                 <table class="ui table" summary="Typo.css 的测试平台列表">
@@ -147,27 +144,22 @@
 
                 <h4>中文排版的重点和难点</h4>
 
-                <p>在中文排版中，HTML4 的很多标准在语义在都有照顾到。但从视觉效果上，却很难利用单独的 CSS 来实现，像<abbr title="在文字下多加一个点">着重号</abbr>（例：这里<em
-                        class="typo-em">强调一下</em>）。在 HTML4 中，专名号标签（<code>&lt;u&gt;</code>）已经被放弃，而
-                    HTML5 被<a href="//html5doctor.com/u-element/">重新提起</a>。<i class="serif">Typo.css</i>
-                    也根据实际情况提供相应的方案。我们重要要注意的两点是：</p>
-                <ol>
-                    <li>语义：语义对应的用法和样式是否与中文排版一致</li>
-                    <li>表现：在各浏览器中的字体、大小和缩放是否如排版预期</li>
-                </ol>
-                <p>对于这些，<i class="serif">Typo.css</i> 排版项目的中文偏重注意点，都添加在附录中，详见：</p>
-                <blockquote>
-                    <b>附录一</b>：<a href="#appendix1"><i class="serif">Typo.css</i> 排版偏重点</a>
-                </blockquote>
+          <p>在中文排版中，HTML4 的很多标准在语义在都有照顾到。但从视觉效果上，却很难利用单独的 CSS 来实现，像<abbr title="在文字下多加一个点">着重号</abbr>（例：这里<em class="typo-em">强调一下</em>）。在 HTML4 中，专名号标签（<code>&lt;u&gt;</code>）已经被放弃，而
+            HTML5 被<a href="http://html5doctor.com/u-element/">重新提起</a>。<i class="serif">Typo.css</i> 也根据实际情况提供相应的方案。我们重要要注意的两点是：</p>
+          <ol>
+            <li>语义：语义对应的用法和样式是否与中文排版一致</li>
+            <li>表现：在各浏览器中的字体、大小和缩放是否如排版预期</li>
+          </ol>
+          <p>对于这些，<i class="serif">Typo.css</i> 排版项目的中文偏重注意点，都添加在附录中，详见：</p>
+          <blockquote>
+            <b>附录一</b>：<a href="#appendix1"><i class="serif">Typo.css</i> 排版偏重点</a>
+          </blockquote>
 
-                <p>目前已有像百姓网等全面使用 <i class="serif">Typo.css</i> 的项目，测试平台的覆盖，特别是在<abbr title="手机、平板电脑等移动平台">移动端</abbr>上还没有覆盖完主流平台，希望有能力的同学能加入测试行列，或者加入到
-                    <i class="serif">Typo.css</i>
-                    的开发。加入方法：<a href="https://github.com/sofish/Typo.css">参与 <i class="serif">Typo.css</i> 开发</a>。如有批评、建议和意见，也随时欢迎给在
-                    Github 直接提 <a
-                            href="https://github.com/sofish/Typo.css/issues">issues</a>，或给<abbr
-                            title="Sofish Lin, author of Typo.css"
-                            role="author">我</abbr>发<a
-                            href="mailto:sofish@icloud.com">邮件</a>。</p>
+          <p>目前已有像百姓网等全面使用 <i class="serif">Typo.css</i> 的项目，测试平台的覆盖，特别是在<abbr title="手机、平板电脑等移动平台">移动端</abbr>上还没有覆盖完主流平台，希望有能力的同学能加入测试行列，或者加入到 <i class="serif">Typo.css</i>
+            的开发。加入方法：<a href="https://github.com/sofish/Typo.css">参与 <i class="serif">Typo.css</i> 开发</a>。如有批评、建议和意见，也随时欢迎给在 Github 直接提 <a
+                    href="https://github.com/sofish/Typo.css/issues">issues</a>，或给<abbr title="Sofish Lin, author of Typo.css"
+                                                                                        role="author">我</abbr>发<a
+                    href="mailto:sofish@icloud.com">邮件</a>。</p>
 
 
                 <h2 id="section2">二、排版实例：</h2>
@@ -203,91 +195,67 @@
                         title="张燕婴">我</abbr>的学说，纷纷到我这里来讨论问题，我也感到快乐；再退一步说，即使社会不采用，人们也不理解我，我也不怨恨，这样做，不也就是君子吗？（见《齐鲁学刊》1986年第6期文）这种解释可以自圆其说，而且也有一定的道理，供读者在理解本章内容时参考。
                 </p>
 
-                <p>
-                    此外，在对「人不知，而不愠」一句的解释中，也有人认为，「人不知」的后面没有宾语，人家不知道什么呢？当时因为孔子有说话的特定环境，他不需要说出知道什么，别人就可以理解了，却给后人留下一个谜。有人说，这一句是接上一句说的，从远方来的朋友向我求教，我告诉他，他还不懂，我却不怨恨。这样，「人不知」就是「人家不知道我所讲述的」了。这样的解释似乎有些牵强。</p>
+          <p>此外，在对「人不知，而不愠」一句的解释中，也有人认为，「人不知」的后面没有宾语，人家不知道什么呢？当时因为孔子有说话的特定环境，他不需要说出知道什么，别人就可以理解了，却给后人留下一个谜。有人说，这一句是接上一句说的，从远方来的朋友向我求教，我告诉他，他还不懂，我却不怨恨。这样，「人不知」就是「人家不知道我所讲述的」了。这样的解释似乎有些牵强。</p>
 
                 <p>总之，本章提出以学习为乐事，做到人不知而不愠，反映出孔子学而不厌、诲人不倦、注重修养、严格要求自己的主张。这些思想主张在《论语》书中多处可见，有助于对第一章内容的深入了解。</p>
 
                 <h3 id="section2-2">例2：英文排版</h3>
 
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's
-                    standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                    scrambled it to make a
-                    type specimen book. It has survived not only five centuries, but also the leap into electronic
-                    typesetting, remaining
-                    essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
-                    containing Lorem Ipsum
-                    passages, and more recently with desktop publishing software like Aldus PageMaker including versions
-                    of Lorem
-                    Ipsum.</p>
-                <blockquote>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                    commodo consequat.
-                </blockquote>
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+            standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
+            type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining
+            essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+            passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem
+            Ipsum.</p>
+          <blockquote>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          </blockquote>
 
                 <h4>The standard Lorem Ipsum passage, used since the 1500s</h4>
 
-                <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                    commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                    pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+          <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+            occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
 
                 <h4>Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC</h4>
 
-                <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-                    totam rem aperiam,
-                    eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                    Nemo enim ipsam
-                    voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
-                    qui ratione
-                    voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                    consectetur, adipisci
-                    velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat
-                    voluptatem. Ut enim
-                    ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex
-                    ea commodi
-                    consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil
-                    molestiae consequatur,
-                    vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
+          <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
+            eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
+            voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+            voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
+            velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim
+            ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
+            consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur,
+            vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
 
-                <h4>List style in action</h4>
-                <ul>
-                    <li>If you wish to succeed, you should use persistence as your good friend, experience as your
-                        reference, prudence as
-                        your brother and hope as your sentry.
-                        <p>如果你希望成功，当以恒心为良友，以经验为参谋，以谨慎为兄弟，以希望为哨兵。</p>
-                    </li>
-                    <li>Sometimes one pays most for the things one gets for nothing.
-                        <p>有时候一个人为不花钱得到的东西付出的代价最高。</p>
-                    </li>
-                    <li>Only those who have the patience to do simple things perfectly ever acquire the skill to do
-                        difficult things
-                        easily.
-                        <p>只有有耐心圆满完成简单工作的人，才能够轻而易举的完成困难的事。</p>
-                    </li>
-                </ul>
+          <h4>List style in action</h4>
+          <ul>
+            <li>If you wish to succeed, you should use persistence as your good friend, experience as your reference, prudence as
+              your brother and hope as your sentry.
+              <p>如果你希望成功，当以恒心为良友，以经验为参谋，以谨慎为兄弟，以希望为哨兵。</p>
+            </li>
+            <li>Sometimes one pays most for the things one gets for nothing.
+              <p>有时候一个人为不花钱得到的东西付出的代价最高。</p>
+            </li>
+            <li>Only those who have the patience to do simple things perfectly ever acquire the skill to do difficult things
+              easily.
+              <p>只有有耐心圆满完成简单工作的人，才能够轻而易举的完成困难的事。</p>
+            </li>
+          </ul>
 
-                <h4>You may want to create a perfect <code>&lt;hr /&gt;</code> line, despite the fact that there will
-                    never have one
-                </h4>
-                <hr/>
-                <p><abbr title="法国作家罗切福考尔德">La Racheforcauld</abbr> said:
-                    <mark>"Few things are impossible in themselves; and it is often for want of will, rather than of
-                        means, that man fails
-                        to succeed".
-                    </mark>
-                    You just need to follow the browser's behavior, and set a right <code>margin</code> to it。it will
-                    works nice as the
-                    demo you're watching now. The following code is the best way to render typo in Chinese:
-                </p>
-
-                <pre ><code class="language-css">
+          <h4>You may want to create a perfect <code>&lt;hr /&gt;</code> line, despite the fact that there will never have one
+          </h4>
+          <hr/>
+          <p><abbr title="法国作家罗切福考尔德">La Racheforcauld</abbr> said:
+            <mark>"Few things are impossible in themselves; and it is often for want of will, rather than of means, that man fails
+              to succeed".
+            </mark>
+            You just need to follow the browser's behavior, and set a right <code>margin</code> to it。it will works nice as the
+            demo you're watching now. The following code is the best way to render typo in Chinese:
+          </p>
+          <pre ><code class="language-css">
 /* 标题应该更贴紧内容，并与其他块区分，margin 值要相应做优化 */
 h1,h2,h3,h4,h5,h6 {
     line-height:1;font-family:Arial,sans-serif;margin:1.4em 0 0.8em;
@@ -459,29 +427,29 @@ h5,h6{font-size:1em;}
                 <h5 id="appendix2">2、开源许可</h5>
             </div>
 
-            <!--标签-->
-            <div class="m-padded-lr-responsive">
-                <div class="ui basic teal left pointing">方法论</div>
+        <!--标签-->
+        <div class="m-padded-lr-responsive">
+          <div class="ui basic teal left pointing label" th:each="tag : ${blog.tags}" th:text="${tag.name}">方法论</div>
+        </div>
+
+        <!--赞赏-->
+        <div class="ui center aligned basic segment">
+          <button id="payButton" class="ui orange basic circular button">赞赏</button>
+        </div>
+        <div class="ui payQR flowing popup transition hidden">
+          <div class="ui orange basic label">
+            <div class="ui images" style="font-size: inherit !important;">
+              <div class="image">
+                <img src="../static/images/wechat.jpg" th:src="@{/images/preview.jpg}" alt="" class="ui rounded bordered image" style="width: 120px">
+                <div>支付宝</div>
+              </div>
+              <div class="image">
+                <img src="../static/images/wechat.jpg" th:src="@{/images/preview.jpg}" alt="" class="ui rounded bordered image" style="width: 120px">
+                <div>微信</div>
+              </div>
             </div>
-            <!--点赞-->
-            <div class="ui center aligned basic segment">
-                <button id="payButton" class="ui orange basic circular button">点赞</button>
-            </div>
-            <div class="ui payQR flowing popup top left transition hidden">
-                <div class="ui orange basic label">
-                    <div class="ui images" style="font-size: inherit !important;">
-                        <div class="image">
-                            <img src="../static/images/preview.jpg" th:src="@{/images/preview.jpg}" alt="" class="ui rounded bordered image" style="width: 120px">
-                            <div>支付宝</div>
-                        </div>
-                        <div class="image">
-                            <img src="../static/images/preview.jpg" th:src="@{/images/preview.jpg}" alt="" class="ui rounded bordered  image"
-                                 style="width: 120px">
-                            <div>微信</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
+        </div>
 
         </div>
         <div class="ui attached positive message">
@@ -489,8 +457,8 @@ h5,h6{font-size:1em;}
             <div class="ui middle aligned grid">
                 <div class="eleven wide column">
                     <ui class="list">
-                        <li>作者：Xw Chen</li>
-                        <li>发表时间:2020年10月5日 10:11:49</li>
+                        <li>作者：<span th:text="${blog.user.nickname}">a Xw Chen</span><a href="#" th:href="@{/about}" target="_blank" >(联系作者)</a> </li>
+                        <li>发表时间:<span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm:ss')}">2020年10月5日 10:11:49</span> </li>
                         <li>版权声明：自由转载-非商用-非衍生-保持署名</li>
                         <li>公众号装载：请在文末添加作者公众号二维码</li>
                     </ui>
@@ -681,7 +649,7 @@ h5,h6{font-size:1em;}
 <script src="../static/lib/waypoints/jquery.waypoints.min.js"></script>
     <!--/*/</th:block>/*/-->
 
-<script>
+<script th:inline="javascript">
 $('.menu.toggle').click(function () {
   $('.m-item').toggleClass('m-mobile-hide');
 });
@@ -711,8 +679,11 @@ $('.wechat').popup({
   popup : $('.wechat-qr'),
   position: 'left center'
 });
+
+var serurl="127.0.0.1:8080"
+var url=/*[[@{/blog{id}(id=${blog.id})}]]*/"";
 var qrcode = new QRCode("qrcode", {
-    text: "http://jindo.dev.naver.com/collie",
+    text: serurl+url,
     width: 110,
     height: 110,
     colorDark : "#000000",

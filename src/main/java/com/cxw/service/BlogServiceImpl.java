@@ -4,6 +4,7 @@ import com.cxw.NotFoundException;
 import com.cxw.dao.BlogRepository;
 import com.cxw.po.Blog;
 import com.cxw.po.Type;
+import com.cxw.util.MarkdownUtils;
 import com.cxw.util.MyBeanUtils;
 import com.cxw.vo.BlogQuery;
 import org.springframework.beans.BeanUtils;
@@ -34,6 +35,28 @@ public class BlogServiceImpl implements BlogService {
     public Blog getBlog(Long id) {
         //根据主键ID来查询
         return blogRepository.findOne(id);
+    }
+
+    @Override
+    public Blog getAndConvert(Long id) {
+        //首先根据获取一个blog
+        Blog blog = blogRepository.findOne(id);
+        //如果获取的blog为空，则抛出一个异常
+        if (blog == null) {
+            throw new NotFoundException("该博客不存在");
+        }
+
+        //new一个新的Blog对象b
+        Blog b = new Blog();
+        //将blog的复制给b，此目的是为了用b对象代替blog对象，去处理content。若直接处理blog对象，
+        //会改变数据库原本内容变成html语句，后面无法修改博客内容。
+        BeanUtils.copyProperties(blog,b);
+        //获取blog中的content
+        String content = b.getContent();
+        //利用markdownUtils工具类，将具有markdown语法格式的content传入
+        //处理完后的content，重新赋值给b
+        b.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+        return b;
     }
 
     @Override
@@ -77,13 +100,13 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Page<Blog> listBlog(String query, Pageable pageable) {
-        return blogRepository.findByQuery(query,pageable);
+        return blogRepository.findByQuery(query, pageable);
     }
 
     @Override
     public List<Blog> listRecommendBlogTop(Integer size) {
-        Sort sort =new Sort(Sort.Direction.DESC,"updateTime");
-        Pageable pageable = new PageRequest(0,size,sort);
+        Sort sort = new Sort(Sort.Direction.DESC, "updateTime");
+        Pageable pageable = new PageRequest(0, size, sort);
         return blogRepository.findTop(pageable);
     }
 
@@ -114,7 +137,7 @@ public class BlogServiceImpl implements BlogService {
         if (b == null) {
             throw new NotFoundException("该博客不存在");
         }
-        BeanUtils.copyProperties(blog,b, MyBeanUtils.getNullPropertyNames(blog));
+        BeanUtils.copyProperties(blog, b, MyBeanUtils.getNullPropertyNames(blog));
         b.setUpdateTime(new Date());
         return blogRepository.save(b);
     }

@@ -6,6 +6,7 @@ import com.cxw.service.BlogService;
 import com.cxw.service.TagService;
 import com.cxw.service.TypeService;
 import com.cxw.vo.BlogQuery;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -13,6 +14,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -65,8 +67,11 @@ public class IndexController {
 
     }
 
+    //博客详情
     @GetMapping("/blog/{id}")
-    public String blog() {
+    //根据主键id查询，传一个id进去
+    public String blog(@PathVariable Long id, Model model) {
+        model.addAttribute("blog",blogService.getAndConvert(id));
         return "blog";
     }
 }
