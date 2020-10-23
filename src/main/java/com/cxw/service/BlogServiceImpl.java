@@ -37,6 +37,7 @@ public class BlogServiceImpl implements BlogService {
         return blogRepository.findOne(id);
     }
 
+    @Transactional
     @Override
     public Blog getAndConvert(Long id) {
         //首先根据获取一个blog
@@ -56,6 +57,9 @@ public class BlogServiceImpl implements BlogService {
         //利用markdownUtils工具类，将具有markdown语法格式的content传入
         //处理完后的content，重新赋值给b
         b.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+
+        //点击数累加
+        blogRepository.updateViews(id);
         return b;
     }
 

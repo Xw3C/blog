@@ -521,17 +521,24 @@ h5,h6{font-size:1em;}
                                 <img src="https://picsum.photos/id/1002/100/100" th:src="@{${comment.avatar}}">
                             </a>
                             <div class="content">
-                                <a class="author" th:text="${comment.nickname}">Matt</a>
+                                <a class="author">
+                                    <span th:text="${comment.nickname}">Matt</span>
+                                    <div class="ui mini basic teal left pointing label m-padded-mini" th:if="${comment.adminComment}">博主</div>
+                                </a>
                                 <div class="metadata">
-                                    <span class="date" th:text="${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm:ss')}">Today at 5:42PM</span>
+                                    <span class="date"
+                                          th:text="${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm:ss')}">Today at 5:42PM</span>
                                 </div>
                                 <div class="text" th:text="${comment.content}">
                                     How artistic!
                                 </div>
                                 <div class="actions">
-                                    <a class="reply" data-commentid="1" data-commentnickname="Matt" th:attr="data-commentid=${comment.id},data-commentnickname=${comment.nickname}" onclick="reply(this)">回复</a>
+                                    <a class="reply" data-commentid="1" data-commentnickname="Matt"
+                                       th:attr="data-commentid=${comment.id},data-commentnickname=${comment.nickname}"
+                                       onclick="reply(this)">回复</a>
                                 </div>
                             </div>
+
                             <div class="comments" th:if="${#arrays.length(comment.replyComments)}>0">
                                 <div class="comment" th:each="reply : ${comment.replyComments}">
                                     <a class="avatar">
@@ -540,9 +547,9 @@ h5,h6{font-size:1em;}
                                     <div class="content">
                                         <a class="author">
                                             <span th:text="${reply.nickname}">小红</span>
-                                            <div class="ui mini basic teal left pointing label m-padded-mini"></div>
-                                            &nbsp;<span th:text="|@ ${reply.parentComment.nickname}|"
-                                                        class="m-teal"></span>
+                                            <div class="ui mini basic teal left pointing label m-padded-mini" th:if="${comment.adminComment}">博主</div>
+                                            <span th:text="| @ ${reply.parentComment.nickname}|" class="m-teal">@ 小白</span>
+
                                         </a>
                                         <div class="metadata">
                                             <span class="date"
@@ -626,13 +633,13 @@ h5,h6{font-size:1em;}
                     <div class="field m-mobile-wide m-margin-bottom-small">
                         <div class="ui left icon input">
                             <i class="user icon"></i>
-                            <input type="text" name="nickname" placeholder="姓名">
+                            <input type="text" name="nickname" placeholder="姓名" th:value="${session.user}!=null ? ${session.user.nickname}">
                         </div>
                     </div>
                     <div class="field m-mobile-wide m-margin-bottom-small">
                         <div class="ui left icon input">
                             <i class="mail icon"></i>
-                            <input type="text" name="email" placeholder="邮箱">
+                            <input type="text" name="email" placeholder="邮箱" th:value="${session.user}!=null ? ${session.user.email}">
                         </div>
                     </div>
                     <div class="field m-margin-bottom-small m-mobile-wide">
@@ -831,7 +838,7 @@ h5,h6{font-size:1em;}
             "email": $("[name='email']").val(),
             "content": $("[name='content']").val()
         }, function (responseTxt, statusTxt, xhr) {
-//        $(window).scrollTo($('#comment-container'),500);
+            $(window).scrollTo($('#comment-container'),500);
             clearContent();
         });
     }
