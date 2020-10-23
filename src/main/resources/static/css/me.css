@@ -2,7 +2,10 @@
 
 
 body{
-    background: url("../images/Cloud.jpg");
+    background: url("../images/Cloud.jpg") no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+
 }
 .m-padded-mini {
     padding: 0.2em !important;
