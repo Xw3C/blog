@@ -23,8 +23,13 @@ public interface BlogService {
 
     Page<Blog> listBlog(Pageable pageable);
 
+    //根据标签Id，查询所包含的Blog
+    Page<Blog> listBlog(Long tagId,Pageable pageable);
+
     //根据Query查询 搜索功能  重新定义一个结构方法
     Page<Blog> listBlog(String query,Pageable pageable);
+
+
 
 
 

@@ -35,25 +35,17 @@ public class IndexController {
     private TagService tagService;
 
     @GetMapping("/")
+    //访问首页
     public String index(@PageableDefault(size = 8, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                         Model model) {
-
         //拿到分页的数据，放到model里面
         model.addAttribute("page",blogService.listBlog(pageable));
-
   		//拿到分类的数据、显示分类的前6个
         model.addAttribute("types",typeService.listTypeTop(6));
-		
         //拿到标签的数据
         model.addAttribute("tags",tagService.listTagTop(10));
-
-      
-
         //拿到推荐博客的数据
         model.addAttribute("recommendBlogs",blogService.listRecommendBlogTop(6));
-
-
-
         return "index";
     }
 
