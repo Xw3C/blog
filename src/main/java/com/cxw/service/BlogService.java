@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BlogService {
 
@@ -29,7 +30,11 @@ public interface BlogService {
     //根据Query查询 搜索功能  重新定义一个结构方法
     Page<Blog> listBlog(String query,Pageable pageable);
 
+    //归档功能，使用Map集合，数据之间有映射关系
+    Map<String,List<Blog>> archiveBlog();
 
+    //归档 统计博客数量
+    Long countBlog();
 
 
 

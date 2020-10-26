@@ -18,9 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class BlogServiceImpl implements BlogService {
@@ -115,6 +113,27 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Page<Blog> listBlog(String query, Pageable pageable) {
         return blogRepository.findByQuery(query, pageable);
+    }
+
+    @Override
+    public Map<String, List<Blog>> archiveBlog() {
+        //创一个list集合来存储year,拿到年份
+        List<String> years = blogRepository.findGroupYear();
+        //map集合，代表年份和博客的映射关系
+        Map<String,List<Blog>> map = new HashMap<>();
+        //循环年份对应blog
+        for (String year : years){
+            //map集合是存储映射关系，blogRepository.findByYear(year)代表根据年份对应的博客
+            map.put(year,blogRepository.findByYear(year));
+        }
+
+
+        return map;
+    }
+
+    @Override
+    public Long countBlog() {
+        return blogRepository.count();
     }
 
     @Override
